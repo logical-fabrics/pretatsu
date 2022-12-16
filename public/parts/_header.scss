@@ -1,0 +1,426 @@
+@use "../global" as g;
+@use "reset";
+
+header {
+  width: 100vw;
+  height: auto;
+  display: flex;
+  z-index: 99;
+  background-color: #ffffff;
+
+  @function vw($pixel) {
+    $viewport: 1920; // 基準となるビューポート
+    @return ($pixel / $viewport * 100vw);
+  }
+
+  @function fontSize($maxFont) {
+    $minWidth: 1000;
+    $maxWidth: 1920;
+    $maxFontSize: $maxFont * 1px;
+    $fontVw: round($maxFont/$maxWidth * 100 * 1000) / 1000;
+    $minFontSize: round($minWidth * ($fontVw / 100)) * 1px;
+    @return clamp(#{$minFontSize}, #{$fontVw}vw, #{$maxFontSize});
+  }
+
+  .header-main {
+    display: flex;
+    width: 100vw;
+    justify-content: space-between;
+    .header-left {
+      img {
+        width: 16vw;
+        padding-left: vw(30);
+        padding-top: vw(27);
+        @include g.lp {
+          width: 150px;
+        }
+      }
+    }
+
+    .header-right {
+      display: flex;
+
+      .header-right1 {
+        position: relative;
+        @include g.ph {
+          display: none;
+        }
+
+        .active {
+          position: absolute;
+          left: 0;
+          top: 0;
+          opacity: 0;
+          transition: 0.3s; // ゆっくり
+        }
+
+        :hover {
+          opacity: 1;
+        }
+
+        img {
+          width: vw(280);
+          height: vw(71);
+          display: flex;
+          background-color: black;
+          @include g.lp {
+            width: 200px;
+            height: auto;
+          }
+          @include g.ph {
+            width: 150px;
+            height: auto;
+          }
+        }
+
+        p {
+          color: #ffffff;
+          font-family: "MatissePro-B";
+          font-size: fontSize(20);
+          text-align: center;
+          margin: auto;
+          letter-spacing: 0.1em;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translateY(-50%) translateX(-50%);
+          @include g.lp {
+            font-size: 12px;
+            width: 100%;
+          }
+        }
+      }
+      .header-right2 {
+        width: fit-content;
+        margin: 0 17px;
+        .header-burger {
+          width: 50px;
+          height: 50px;
+          background-color: #ffffff;
+          margin-top: -7px;
+          z-index: 10;
+        }
+      }
+    }
+  }
+
+  /*========= ナビゲーションのためのCSS ===============*/
+
+  #g-nav {
+    /*position:fixed;にし、z-indexの数値を小さくして最背面へ*/
+    position: absolute;
+    z-index: -10;
+    opacity: 0; /*はじめは透過0*/
+    /*ナビの位置と形状*/
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto; /*ナビの高さ*/
+    background: rgba(255, 255, 255, 0.3); /*背景を少し透過させる*/
+    /*動き*/
+    transition: all 0.3s;
+  }
+
+  /*アクティブクラスがついたら透過なしにして最前面へ*/
+  #g-nav.panelactive {
+    opacity: 1;
+    z-index: 9;
+  }
+
+  /*ナビゲーションの縦スクロール*/
+  #g-nav.panelactive #g-nav-list {
+    /*ナビの数が増えた場合縦スクロール*/
+    position: absolute;
+    z-index: 10;
+    width: 100%;
+    height: 100vh; /*表示する高さ*/
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /*ナビゲーション*/
+  #g-nav .burger {
+    display: none; /*はじめは非表示*/
+    /*ナビゲーション天地中央揃え*/
+    position: absolute;
+    z-index: 9;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  #g-nav.panelactive .burger {
+    display: flex;
+    width: 50vw;
+    flex-direction: column;
+    z-index: 10;
+    margin: auto;
+    @include g.lp {
+      width: 70vw;
+    }
+    @include g.ph {
+      width: 90vw;
+    }
+  }
+  /*リストのレイアウト設定*/
+
+  #g-nav p {
+    list-style: none;
+    text-align: center;
+    border-radius: 100px;
+  }
+
+  #g-nav p a {
+    text-decoration: none;
+    padding: 15px 15px;
+    display: inline-block;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: bold;
+    width: fit-content;
+    text-align: center;
+  }
+
+  /*========= ボタンのためのCSS ===============*/
+  .openbtn {
+    position: absolute;
+    z-index: 10; /*ボタンを最前面に*/
+
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    margin-top: 12px;
+  }
+
+  /*×に変化*/
+  .openbtn span {
+    display: inline-block;
+    transition: all 0.4s;
+    position: absolute;
+    left: 14px;
+    height: 2px;
+    border-radius: 2px;
+    background-color: #000000;
+    width: 25px;
+  }
+
+  .openbtn span:nth-of-type(1) {
+    top: 15px;
+  }
+
+  .openbtn span:nth-of-type(2) {
+    top: 23px;
+  }
+
+  .openbtn span:nth-of-type(3) {
+    top: 31px;
+  }
+
+  .openbtn span:nth-of-type(4)::after {
+    content: "Menu"; /*3つ目の要素のafterにMenu表示を指定*/
+    position: absolute;
+    top: 38px;
+    transform: translateY(-50%) translateX(-50%);
+    font-size: 10px;
+    transform: scale(0.9);
+    font-family: "FOT-マティス Pro B";
+    font-weight: 500;
+    left: -4px;
+    letter-spacing: 1px;
+  }
+
+  .openbtn.active span:nth-of-type(1) {
+    top: 18px;
+    left: 18px;
+    transform: translateY(6px) rotate(-45deg);
+    width: 30%;
+  }
+
+  .openbtn.active span:nth-of-type(2) {
+    opacity: 0;
+  }
+
+  .openbtn.active span:nth-of-type(3) {
+    top: 30px;
+    left: 18px;
+    transform: translateY(-6px) rotate(45deg);
+    width: 30%;
+  }
+
+  a {
+    position: relative;
+    display: inline-block;
+    text-decoration: none;
+  }
+  a::after {
+    position: absolute;
+    // bottom: -4px;
+    // left: 0;
+    // content: '';
+    // width: 100%;
+    // height: 1px;
+    // background: #000000;
+    // transform: scale(0, 1);
+    // transform-origin: left top;
+    // transition: transform .5s;
+  }
+  a:hover::after {
+    opacity: 1;
+    transform: scale(1.08);
+    transition-duration: 0.5s;
+  }
+
+  .burger-access {
+    display: flex;
+    font-size: clamp(14px, 1.04vw, 20px);
+    font-family: "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", sans-serif;
+    width: auto;
+    height: auto;
+    display: flex;
+    margin-bottom: 40px;
+    :hover {
+      background-color: #c0a421;
+      color: #fff;
+      transition-duration: 0.5s;
+      opacity: 1;
+    }
+
+    @include g.ph {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    a {
+      background-color: #ffffff;
+      height: fit-content;
+      margin: 1vw;
+      color: #000;
+      box-shadow: 0px 5px 15px 0px rgb(0 0 0 / 35%);
+      border-radius: 2%;
+      width: 38.125vw;
+      margin: auto;
+      border-radius: 60px;
+      @include g.lp {
+        width: 70vw;
+      }
+      @include g.ph {
+        width: 100%;
+      }
+
+      p {
+        background-color: #c0a421;
+        color: #000;
+        font-size: 24px;
+        font-weight: bold;
+        padding: 28px 0 !important;
+        width: auto;
+
+        @include g.ph {
+          font-size: 20px;
+        }
+      }
+    }
+
+    p {
+      background-color: #000000;
+      height: fit-content;
+      margin: 1vw;
+      color: #333;
+      box-shadow: 0px 5px 15px 0px rgb(0 0 0 / 35%);
+      border-radius: 2%;
+      width: 38.125vw;
+      margin: auto;
+      border-radius: 60px;
+
+      @include g.ph {
+        width: 66vw;
+      }
+    }
+  }
+
+  .burger-access2 {
+    display: flex;
+    font-size: clamp(14px, 1.04vw, 20px);
+    font-family: "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", sans-serif;
+    width: auto;
+    height: auto;
+    display: flex;
+    margin: auto;
+    justify-content: center;
+    flex-direction: column;
+
+    @include g.ph {
+      flex-direction: column;
+      align-items: center;
+      margin-top: 0px;
+      margin-bottom: 40px;
+    }
+    a {
+      :hover {
+        background-color: #fff;
+        color: #c0a421;
+        transition-duration: 0.5s;
+        opacity: 1;
+      }
+
+      p {
+        width: 23vw;
+        background-color: #ffffff;
+        margin: 1vw;
+        color: #000000;
+        box-shadow: 0px 5px 15px 0px rgb(0 0 0 / 35%);
+        padding: 15px 0;
+        font-size: 20px;
+        font-weight: bold;
+        @include g.lp {
+          width: 50vw;
+        }
+
+        @include g.ph {
+          width: 80vw;
+        }
+      }
+
+      li:hover {
+        background-color: #fff;
+        color: #c0a421;
+        transition-duration: 0.5s;
+        opacity: 1;
+      }
+    }
+  }
+  .footer-3 {
+    width: 30vw;
+    margin: auto;
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 40px;
+
+    @include g.ph {
+      width: 80vw;
+      flex-direction: row;
+      margin-top: 7vw;
+    }
+    :hover {
+      opacity: 1;
+      transform: scale(1.08);
+      transition-duration: 0.5s;
+    }
+
+    img {
+      width: 60px;
+      @include g.ph {
+        width: 15vw;
+        margin-bottom: 7vw;
+      }
+    }
+  }
+
+  .no_line {
+    width: 0px !important;
+  }
+}
+
+.mainblur {
+  filter: blur(8px);
+}

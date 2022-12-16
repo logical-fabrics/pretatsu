@@ -1,0 +1,89 @@
+* {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  min-height: 0vw;
+}
+
+html {
+  overflow-y: scroll;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  height: 100%;
+}
+
+body {
+  font-family: fot-matisse-pron, sans-serif;
+  font-style: normal;
+  *font: x-small;
+  background: #fff;
+  color: #000000;
+
+  font-family: "Hiragino Sans", "ヒラギノ角ゴ Pro", "Hiragino Kaku Gothic Pro",
+    "メイリオ", "Meiryo", "Verdana", "sans-serif", " 筑紫A丸ゴシック Std",
+    "游ゴシック体", "YuGothic", "游ゴシック", "Yu Gothic", "sans-serif";
+
+  -webkit-text-size-adjust: 100%;
+  font-size: 16px;
+  height: auto;
+  margin: 0;
+  overflow-x: hidden;
+  font-feature-settings: "palt" 1;
+  font-size: min(12px, 50px);
+  // max-width: 1920px;
+
+  a,
+  a:visited,
+  a:hover,
+  a:active {
+    color: inherit;
+    text-decoration: none;
+  }
+  a :hover {
+    opacity: 0.8;
+  }
+
+  h1 {
+    font-family: "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", sans-serif;
+    color: #000000;
+    font-weight: bold;
+    font-feature-settings: "palt" 1;
+    letter-spacing: -1px;
+    font-weight: normal;
+    margin: 0;
+    padding: 0;
+  }
+  h2 {
+    font-family: "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", sans-serif;
+    font-weight: normal;
+    margin: 0;
+    padding: 0;
+  }
+  h3 {
+    font-size: clamp(18px, 1.67vw, 32px);
+    font-family: "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", sans-serif;
+    color: #000000;
+    font-weight: bold;
+    font-feature-settings: "palt" 1;
+    letter-spacing: -1px;
+  }
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+  }
+  p {
+    font-family: "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", sans-serif;
+    font-size: 12px;
+    line-height: normal;
+    font-feature-settings: "palt" 1;
+    color: #000000;
+    color: rgb(0, 0, 0);
+    font-size: min(0.63vw, 12px);
+  }
+}

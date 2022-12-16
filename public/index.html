@@ -1,165 +1,544 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Welcome to Firebase Hosting</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="images/2x/favicon.ico" id="favicon" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/apple-touch-icon-180x180.png"
+    />
+    <title>プレゼンの達人</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"
+    />
 
-    <!-- update the version number as needed -->
-    <script defer src="/__/firebase/9.15.0/firebase-app-compat.js"></script>
-    <!-- include only the Firebase features as you need -->
-    <script defer src="/__/firebase/9.15.0/firebase-auth-compat.js"></script>
-    <script
-      defer
-      src="/__/firebase/9.15.0/firebase-database-compat.js"
-    ></script>
-    <script
-      defer
-      src="/__/firebase/9.15.0/firebase-firestore-compat.js"
-    ></script>
-    <script
-      defer
-      src="/__/firebase/9.15.0/firebase-functions-compat.js"
-    ></script>
-    <script
-      defer
-      src="/__/firebase/9.15.0/firebase-messaging-compat.js"
-    ></script>
-    <script defer src="/__/firebase/9.15.0/firebase-storage-compat.js"></script>
-    <script
-      defer
-      src="/__/firebase/9.15.0/firebase-analytics-compat.js"
-    ></script>
-    <script
-      defer
-      src="/__/firebase/9.15.0/firebase-remote-config-compat.js"
-    ></script>
-    <script
-      defer
-      src="/__/firebase/9.15.0/firebase-performance-compat.js"
-    ></script>
-    <!-- 
-      initialize the SDK after all desired features are loaded, set useEmulator to false
-      to avoid connecting the SDK to running emulators.
-    -->
-    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
-
-    <style media="screen">
-      body {
-        background: #eceff1;
-        color: rgba(0, 0, 0, 0.87);
-        font-family: Roboto, Helvetica, Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-      }
-      #message {
-        background: white;
-        max-width: 360px;
-        margin: 100px auto 16px;
-        padding: 32px 24px;
-        border-radius: 3px;
-      }
-      #message h2 {
-        color: #ffa100;
-        font-weight: bold;
-        font-size: 16px;
-        margin: 0 0 8px;
-      }
-      #message h1 {
-        font-size: 22px;
-        font-weight: 300;
-        color: rgba(0, 0, 0, 0.6);
-        margin: 0 0 16px;
-      }
-      #message p {
-        line-height: 140%;
-        margin: 16px 0 24px;
-        font-size: 14px;
-      }
-      #message a {
-        display: block;
-        text-align: center;
-        background: #039be5;
-        text-transform: uppercase;
-        text-decoration: none;
-        color: white;
-        padding: 16px;
-        border-radius: 4px;
-      }
-      #message,
-      #message a {
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-      }
-      #load {
-        color: rgba(0, 0, 0, 0.4);
-        text-align: center;
-        font-size: 13px;
-      }
-      @media (max-width: 600px) {
-        body,
-        #message {
-          margin-top: 0;
-          background: white;
-          box-shadow: none;
-        }
-        body {
-          border-top: 16px solid #ffa100;
-        }
-      }
-    </style>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="./parts/modaal.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js"></script>
   </head>
   <body>
-    <div id="message">
-      <h2>Welcome</h2>
-      <h1>Firebase Hosting Setup Complete</h1>
-      <p>
-        You're seeing this because you've successfully setup Firebase Hosting.
-        Now it's time to go build something extraordinary!
-      </p>
-      <a target="_blank" href="https://firebase.google.com/docs/hosting/"
-        >Open Hosting Documentation</a
-      >
+    <header>
+      <div class="header-main" id="top">
+        <div class="header-left container">
+          <a href="./index.html"
+            ><img
+              src="./images/1x/header_img.png"
+              srcset="
+                ./images/1x/header_img.png    1x,
+                ./images/2x/header_img@2x.png 2x
+              "
+              alt="ロゴ"
+          /></a>
+        </div>
+
+        <div class="header-right">
+          <a href=""
+            ><div class="header-right1 container">
+              <img
+                src="./images/2x/head01@2x.png"
+                srcset="./images/2x/head01@2x.png 2x"
+                alt="お問い合わせ"
+              />
+              <img
+                src="./images/2x/w_con@2x.png"
+                srcset="./images/2x/w_con@2x.png 2x"
+                alt="お問い合わせ"
+                class="active"
+              />
+
+              <div class="Arrow-Right"></div>
+              <!-- css_none -->
+            </div>
+          </a>
+          <!-- menu -->
+          <div class="header-right2">
+            <div class="header-burger">
+              <div class="openbtn">
+                <span></span><span></span><span></span
+                ><span class="no_line"></span>
+              </div>
+              <nav id="g-nav">
+                <div id="g-nav-list">
+                  <div class="burger">
+                    <div class="burger-access">
+                      <a href=""><p>無料相談・お問い合わせ</p> </a>
+                    </div>
+                    <div class="burger-access2">
+                      <a href="./company.html"><p>会社情報</p></a>
+                    </div>
+                  </div>
+                </div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="container container_dis" id="container">
+      <div class="top_main">
+        <!-- Top -->
+        <div class="top_img">
+          <ul class="slider_2 slider">
+            <li><img src="./images/2x/a_2@2x.png" alt="観衆" /></li>
+            <!--/slider-->
+          </ul>
+        </div>
+
+        <div class="top_text">
+          <p>「人生を変える」プレゼン極意</p>
+          <div class="wrap">
+            <div class="js-g01">プ</div>
+            <div class="js-g01">レ</div>
+            <div class="js-g01">ゼ</div>
+            <div class="js-g01">ン</div>
+            <div class="js-g01">の</div>
+            <div class="js-g01">達</div>
+            <div class="js-g01">人</div>
+          </div>
+        </div>
+
+        <div class="top_back">
+          <img
+            src="./images/1x/a_01.png"
+            srcset="./images/1x/a_01.png 1x, ./images/2x/a_01@2x.png 2x"
+            alt="背景画像"
+          />
+        </div>
+      </div>
+
+      <div class="title b">
+        <div class="title_wrap">
+          <h1>プレゼンで<br class="sp-br2" />人生を変える。</h1>
+          <img
+            src="./images/1x/b_1.png"
+            srcset="./images/1x/b_1.png 1x, ./images/2x/b_1@2x.png 2x"
+            alt="プレタツbook"
+          />
+          <p>
+            プレタツ（プレゼンの達人）は、プレゼンの悩みを短期間で解決する、<br
+              class="sp-br"
+            />
+            ホリエモンこと堀江貴文氏のプレゼンメソッドを用いた実践形式のトレーニングです。<br />
+            短期間で劇的にプレゼンスキルの向上が図れます。
+          </p>
+        </div>
+        <div class="title_contact">
+          <p>まずは、お気軽にご相談ください！</p>
+          <a href="#">
+            <div class="contact_button">
+              <p>無料相談・お問い合わせ</p>
+            </div>
+          </a>
+        </div>
+
+        <div class="title_contact2">
+          <img
+            src="./images/1x/b_2.png"
+            srcset="./images/1x/b_2.png 1x, ./images/2x/b_2@2x.png 2x"
+            alt="矢印"
+            class="arrow_ora"
+          />
+          <img
+            src="./images/1x/b_3.png"
+            srcset="./images/1x/b_3.png 1x, ./images/2x/b_3@2x.png 2x"
+            alt="お悩みはありませんか"
+            class="scroll_up"
+          />
+        </div>
+
+        <div class="title_contact3">
+          <img
+            src="./images/1x/b_4.png"
+            srcset="./images/1x/b_4.png 1x, ./images/2x/b_4@2x.png 2x"
+            alt="背景画像"
+            class="b_back"
+          />
+          <p>
+            プレタツ（プレゼンの達人）は、そんなお悩みを短期間で<br
+              class="sp-br"
+            />
+            解決します。企画構成から、伝わるデザイン、目的にフォー<br
+              class="sp-br"
+            />
+            カスした成果につながるプレゼンにします。
+          </p>
+        </div>
+
+        <div class="title_contact4">
+          <div class="contact_4_wrap contact_4_wrap_top">
+            <div class="contact_4_title">
+              <h1>こんな人にオススメ</h1>
+            </div>
+            <div class="contact_4_text">
+              <div class="contact_4_left">
+                <p>・とにかくプレゼンがうまくなりたい人</p>
+                <p>・人前で堂々と話せるようになりたい人</p>
+                <p>・思考を整理しコンパクトにしたい人</p>
+                <p>・コミュニケーションスキルを上げたい人</p>
+                <p>・質問力を上げたい人</p>
+                <p>・新しいことにレンジしたい人</p>
+              </div>
+              <div class="contact_4_right">
+                <p>・仕事でプレざんをする機会が多い人</p>
+                <p>・大事なプレゼンの前に自身をつけたい</p>
+                <p>・「何が言いたいのか分からない」と言われる人</p>
+                <p>・仕事で企画や提案が通らなくてお悩みの人</p>
+                <p>・説得力がないと言われる人</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact_4_wrap">
+            <div class="contact_4_title">
+              <h1>参加者の感想</h1>
+            </div>
+            <div class="contact_4_text">
+              <div class="contact_4_left">
+                <p>・人前で話すことに慣れ、自分に自信がついてきた。</p>
+                <p>
+                  ・これまで当たり前にやってきたプレゼンに対する思い込みから抜けだせたことが大きいです。
+                </p>
+                <p>
+                  ・視覚効果によって伝わり方が全然違い、ビジュアルの大事さを痛感しました。
+                </p>
+                <p>
+                  ・伝えることが目的ではなく、何かを得るための手段という基本的な考えに共感しました。
+                </p>
+                <p>
+                  ・意外と自分のやりたいこと、やってることを理解していないことを痛感。目的と手段を常に意識するように頑張ってます。
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="skill">
+        <div class="skill_1">
+          <img
+            src="./images/1x/c_1.png"
+            srcset="./images/1x/c_1.png 1x, ./images/2x/c_1@2x.png 2x"
+            alt="選ばれる3つの理由"
+            class="skill_1_img"
+          />
+          <div class="skill_3_wrap">
+            <img
+              src="./images/1x/c_2.png"
+              srcset="./images/1x/c_2.png 1x, ./images/2x/c_2@2x.png 2x"
+              alt="オンライン参加OK"
+              class="scroll_up"
+            />
+            <img
+              src="./images/1x/c_3.png"
+              srcset="./images/1x/c_3.png 1x, ./images/2x/c_3@2x.png 2x"
+              alt="自信を持てる"
+              class="scroll_up timing02"
+            />
+            <img
+              src="./images/1x/c_4.png"
+              srcset="./images/1x/c_4.png 1x, ./images/2x/c_4@2x.png 2x"
+              alt="満足度が高い"
+              class="scroll_up timing03"
+            />
+          </div>
+        </div>
+        <div class="skill_2">
+          <img
+            src="./images/1x/c_5.png"
+            srcset="./images/1x/c_5.png 1x, ./images/2x/c_5@2x.png 2x"
+            alt="プレゼンのレベルチェック"
+            class="sp-br"
+          />
+          <img
+            src="./images/1x/c_5_2.png"
+            srcset="./images/1x/c_5_2.png 1x, ./images/2x/c_5_2@2x.png 2x"
+            alt="プレゼンのレベルチェック"
+            class="sp-br2"
+          />
+        </div>
+        <div class="skill_3">
+          <div class="title_contact3">
+            <img
+              src="./images/1x/b_4.png"
+              srcset="./images/1x/b_4.png 1x, ./images/2x/b_4@2x.png 2x"
+              alt="背景画像"
+              class="b_back"
+            />
+            <p>
+              あなたのプレゼンのレベルを可視化させて<br class="sp-br" />
+              課題を明確にして、現在地を把握することで、<br class="sp-br" />
+              目指すべきレベルをクリアにします！
+            </p>
+            <img
+              src="./images/1x/b_4_2.png"
+              srcset="./images/1x/b_4_2.png 1x, ./images/2x/b_4_2@2x.png 2x"
+              alt="ポイント"
+              class="b_book"
+            />
+          </div>
+        </div>
+
+        <div class="skill_4 skill_2">
+          <img
+            src="./images/1x/d_1.png"
+            srcset="./images/1x/d_1.png 1x, ./images/2x/d_1@2x.png 2x"
+            alt="プレタツで身につくスキル"
+            class="sp-br"
+          />
+          <img
+            src="./images/1x/d_1_2.png"
+            srcset="./images/1x/d_1_2.png 1x, ./images/2x/d_1_2@2x.png 2x"
+            alt="プレタツで身につくスキル"
+            class="sp-br2"
+          />
+        </div>
+
+        <div class="skill_5 skill_2">
+          <img
+            src="./images/1x/d_2.png"
+            srcset="./images/1x/d_2.png 1x, ./images/2x/d_2@2x.png 2x"
+            alt="プレタツで身につくスキル"
+          />
+        </div>
+
+        <div class="skill_6 skill_2">
+          <img
+            src="./images/1x/e_1.png"
+            srcset="./images/1x/e_1.png 1x, ./images/2x/e_1@2x.png 2x"
+            alt="スライドデザイン"
+          />
+        </div>
+        <div class="skill_7 skill_2">
+          <img
+            src="./images/1x/e_2.png"
+            srcset="./images/1x/e_2.png 1x, ./images/2x/e_2@2x.png 2x"
+            alt="デザイン1"
+          />
+        </div>
+        <div class="skill_8 skill_2">
+          <img
+            src="./images/1x/e_3.png"
+            srcset="./images/1x/e_3.png 1x, ./images/2x/e_3@2x.png 2x"
+            alt="デザイン2"
+          />
+        </div>
+
+        <div class="skill_9 skill_2">
+          <img
+            src="./images/1x/e_2_2.png"
+            srcset="./images/1x/e_2_2.png 1x, ./images/2x/e_2_2@2x.png 2x"
+            alt="レスポンシブデザイン"
+          />
+        </div>
+
+        <p>
+          ストーリーの構築や情報の整理、スライドデザインなど<br />
+          お客様のプレゼン資料制作もサポートします！
+        </p>
+      </div>
+
+      <div class="money_plan">
+        <div class="money1">
+          <img
+            src="./images/1x/f_1.png"
+            srcset="./images/1x/f_1.png 1x, ./images/2x/f_1@2x.png 2x"
+            alt="料金プラン"
+          />
+        </div>
+
+        <div class="money2">
+          <div class="money2_img">
+            <img
+              src="./images/1x/f_2.png"
+              srcset="./images/1x/f_2.png 1x, ./images/2x/f_2@2x.png 2x"
+              alt="個人プラン"
+              class="money_img_1"
+            />
+            <img
+              src="./images/1x/f_3.png"
+              srcset="./images/1x/f_3.png 1x, ./images/2x/f_3@2x.png 2x"
+              alt="個人プラン"
+              class="money_img_2 m2_1"
+            />
+          </div>
+          <div class="money2_img">
+            <img
+              src="./images/1x/f_4.png"
+              srcset="./images/1x/f_4.png 1x, ./images/2x/f_4@2x.png 2x"
+              alt="法人プラン"
+              class="money_img_1"
+            />
+            <img
+              src="./images/1x/f_5.png"
+              srcset="./images/1x/f_5.png 1x, ./images/2x/f_5@2x.png 2x"
+              alt="法人プラン"
+              class="money_img_2"
+            />
+          </div>
+        </div>
+
+        <p>\ ご相談内容など、お気軽にお問い合わせください！ /</p>
+      </div>
+
+      <div class="contact_button">
+        <div class="contact_b_img">
+          <img
+            src="./images/1x/g_1.png"
+            srcset="./images/1x/g_1.png 1x, ./images/2x/g_1@2x.png 2x"
+            alt="背景画像"
+          />
+        </div>
+        <div class="contacr_text">
+          <p>
+            企業から個人様まで、プレゼンのことはお任せください！<br />
+            ご相談・ご質問などもお気軽にお問い合わせください。
+          </p>
+          <a href="#">
+            <img
+              src="./images/1x/g_2.png"
+              srcset="./images/1x/g_2.png 1x, ./images/2x/g_2@2x.png 2x"
+              alt="お問い合わせはコチラ"
+            />
+          </a>
+        </div>
+      </div>
+
+      <div class="flow">
+        <div class="flow_1">
+          <img
+            src="./images/1x/g_3.png"
+            srcset="./images/1x/g_3.png 1x, ./images/2x/g_3@2x.png 2x"
+            alt="利用の流れ"
+          />
+        </div>
+        <div class="flow_2">
+          <img
+            src="./images/1x/g_4.png"
+            srcset="./images/1x/g_4.png 1x, ./images/2x/g_4@2x.png 2x"
+            alt="4ステップ"
+          />
+        </div>
+
+        <!-- ご利用者の声 -->
+      </div>
+
+      <div class="users_voice">
+        <div class="voice_text">
+          <p>\ ご相談内容など、お気軽にお問い合わせください！ /</p>
+        </div>
+      </div>
+
+      <div class="sub_footer">
+        <a href=""
+          ><div class="sub_contact">
+            <p>無料相談・お問い合わせ</p>
+          </div>
+        </a>
+        <div class="logo_img">
+          <a href="/index.html"
+            ><img
+              src="./images/1x/h_2.png"
+              srcset="./images/1x/h_2.png 1x, ./images/2x/h_2@2x.png 2x"
+              alt="ロゴ"
+          /></a>
+        </div>
+
+        <a href="#top"
+          ><div class="page_top">
+            <img
+              src="./images/1x/h_1.png"
+              srcset="./images/1x/h_1.png 1x, ./images/2x/h_1@2x.png 2x"
+              alt="トップに"
+            />
+          </div>
+        </a>
+      </div>
     </div>
-    <p id="load">Firebase SDK Loading&hellip;</p>
 
-    <script>
-      document.addEventListener('DOMContentLoaded', function () {
-        const loadEl = document.querySelector('#load')
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-        // // The Firebase SDK is initialized and available here!
-        //
-        // firebase.auth().onAuthStateChanged(user => { });
-        // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
-        // firebase.firestore().doc('/foo/bar').get().then(() => { });
-        // firebase.functions().httpsCallable('yourFunction')().then(() => { });
-        // firebase.messaging().requestPermission().then(() => { });
-        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
-        // firebase.analytics(); // call to activate
-        // firebase.analytics().logEvent('tutorial_completed');
-        // firebase.performance(); // call to activate
-        //
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+    <footer>
+      <div class="footer_text">
+        <a href="./company.html"><p>会社情報</p></a>
+        <a href="#inline" class="inline"><p>プライバシーポリシー</p></a>
+        <a href=""><p>お問い合わせ</p></a>
+      </div>
 
-        try {
-          let app = firebase.app()
-          let features = [
-            'auth',
-            'database',
-            'firestore',
-            'functions',
-            'messaging',
-            'storage',
-            'analytics',
-            'remoteConfig',
-            'performance',
-          ].filter((feature) => typeof app[feature] === 'function')
-          loadEl.textContent = `Firebase SDK loaded with ${features.join(', ')}`
-        } catch (e) {
-          console.error(e)
-          loadEl.textContent =
-            'Error loading the Firebase SDK, check the console.'
-        }
-      })
-    </script>
+      <div class="copyright">
+        <div class="copy_black"></div>
+        <div class="copy_white">
+          <p>Copyright © PRETATSU All Right Reserved.</p>
+        </div>
+      </div>
+
+      <div id="inline" style="display: none">
+        <div class="tab_pp_container">
+          <div class="tab_wrap">
+            <img
+              src="./images/1x/pp_1.png"
+              class="tab_pp"
+              srcset="./images/1x/pp_1.png 1x, ./images/2x/pp_1@2x.png 2x"
+              alt="プライバシーポリシー"
+            />
+            <div class="up_wrap">
+              <h3 style="font-weight: bold">個人情報の取り扱いについて</h3>
+              <div class="red_line"></div>
+            </div>
+
+            <div class="down_wrap">
+              <div class="down_wrap_top">
+                <h2>個人情報の取り扱いなどについて</h2>
+                <p>
+                  株式会社プレゼンの達人（以下「当社」といいます。）は、個人情報及び特定個人情報の取扱いに関し、以下のプライバシーポリシーを策定、及びこれを遵守するとともに、お客様の個人情報等をはじめとする全ての個人情報等を安全かつ適切に取り扱うにあたり、以下プライバシーポリシーを策定、遵守いたします。
+                  <br />
+                  <br />
+                  お客様におかれましては、本規定を、あらかじめお読みくださいますようお願いいたします。
+                </p>
+              </div>
+
+              <p>
+                <span>1.法令の遵守</span>
+                個人情報等の取り扱い於いて、「個人情報の保護に関する法律」、ガイドライン及び本プライバシーポリシーを遵守いたします。
+
+                <span>2.個人情報等の取得および取り扱い</span>
+                適正かつ公正な手段により個人情報等を取得するものとし、事業活動を通じて定めた個人情報の利用目的の範囲で適切に個人情報を取り扱います。個人情報の利用に当たって、本人の同意なく第三者への提供をいたしません。また、当社が取得する個人情報等の範囲は、当該利用目的を達成するために必要な限度を超えないものとします。
+
+                <span>3.個人情報等の提供</span>
+                法令により例外として扱うことが認められている場合を除き、個人情報をご本人の同意なく特定の委託先以外の第三者に開示・提供することはいたしません。
+
+                <span>4.個人情報等の管理・保護</span>
+                個人情報等について、安全に管理するうえで、漏えい、滅失又はき損の防止等、その管理のために必要かつ適切な措置をいたします。また、個人情報等を取り扱う従業者や委託先に対しては、必要かつ適切な監督を行い管理をいたします。
+
+                <span>5.お問合わせ</span>
+                本プライバシーポリシーに関するお問い合わせにつきましては<a
+                  href="/contact"
+                  >こちら</a
+                >で受け付けております。
+
+                <span class="text_right">
+                  株式会社プレゼンの達人<br />
+                  古賀 大喜<br />
+                  制定日：2022年12月1日<br />
+                </span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script src="./js/modaal.min.js"></script>
+    <script src="./js/presen.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>

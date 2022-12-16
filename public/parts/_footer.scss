@@ -1,0 +1,259 @@
+@use "../global" as g;
+@use "reset";
+@function vw($pixel) {
+  $viewport: 1920; // 基準となるビューポート
+  @return ($pixel / $viewport * 100vw);
+}
+
+@function fontSize($maxFont) {
+  $minWidth: 1000;
+  $maxWidth: 1920;
+  $maxFontSize: $maxFont * 1px;
+  $fontVw: round($maxFont/$maxWidth * 100 * 1000) / 1000;
+  $minFontSize: round($minWidth * ($fontVw / 100)) * 1px;
+  @return clamp(#{$minFontSize}, #{$fontVw}vw, #{$maxFontSize});
+}
+
+footer {
+  .footer_text {
+    display: flex;
+    width: 433px;
+    justify-content: space-between;
+    margin: auto;
+    margin-bottom: 50px;
+
+    @include g.ph {
+      flex-direction: column;
+      align-items: center;
+      width: auto;
+      margin: 30px auto;
+    }
+    p {
+      font-size: 12px;
+      margin: 0;
+      @include g.ph {
+        margin: 12px;
+      }
+    }
+
+    a {
+      position: relative;
+      display: inline-block;
+      text-decoration: none;
+    }
+
+    a::after {
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      content: "";
+      width: 100%;
+      height: 1px;
+      background: #000000;
+      transform: scale(0, 1);
+      transform-origin: left top;
+      transition: transform 0.5s;
+    }
+
+    a:hover::after {
+      opacity: 1;
+      transform: scale(1);
+      transition-duration: 0.5s;
+    }
+  }
+
+  .footer_title {
+    text-align: center;
+
+    p {
+      font-size: 30px;
+      font-weight: bold;
+    }
+  }
+
+  .footer_img {
+    display: flex;
+    width: 227px;
+    margin: auto;
+    justify-content: space-between;
+    margin-bottom: 50px;
+  }
+
+  .copyright {
+    .copy_black {
+      background-color: #000;
+      height: 30px;
+    }
+    .copy_white {
+      height: 30px;
+      p {
+        font-size: 12px;
+        text-align: center;
+        padding: 5px;
+        margin: 0;
+        letter-spacing: -0.4px;
+      }
+    }
+  }
+
+  .pri-po {
+    font-size: 11px;
+    line-height: 1.4;
+    font-feature-settings: "palt" 1;
+    letter-spacing: 0px;
+    color: #808080;
+    display: flex;
+    margin: auto;
+    justify-content: space-around;
+    padding-bottom: 19px;
+  }
+}
+
+// ----------modaal----------
+
+.modaal-inner-wrapper {
+  text-align: center;
+}
+.tab_pp_container {
+  .pp_top {
+    width: 100%;
+    object-fit: cover;
+    margin-top: -5px;
+
+    @include g.tab {
+      transform: scale(1.2); /*要素を左の枠外に移動*/
+      height: 90px;
+    }
+  }
+  p {
+    font-size: 15px;
+    white-space: pre-line;
+    font-family: "Hiragino Sans";
+    font-weight: 300;
+
+    @include g.desktop {
+      font-size: 14px;
+    }
+    @include g.sp {
+      text-align: left;
+    }
+    .hid_pp {
+      @include g.sp {
+        display: none;
+      }
+    }
+    .hid_pp_p {
+      display: none;
+      @include g.sp {
+        display: inline;
+      }
+    }
+  }
+  .red_line {
+    width: vw(208);
+    margin: 0 auto;
+    height: 1px;
+
+    border-bottom: 1px solid #00114c;
+  }
+  .tab_wrap {
+    background-color: white;
+    padding-bottom: vw(93);
+    @include g.tab {
+      margin: 0 auto;
+      width: 95%;
+      padding-bottom: 3vw;
+      white-space: normal;
+    }
+    .tab_pp {
+      width: 100.2%;
+      margin-top: -1px;
+
+      @include g.tab {
+        height: 200px;
+        object-fit: cover;
+        object-position: 27%;
+      }
+    }
+    .up_wrap {
+      margin: 0 auto;
+      text-align: center;
+      margin-bottom: 4vw;
+      @include g.desktop {
+        width: 90%;
+      }
+
+      h3 {
+        margin-bottom: 20px;
+        font-size: 30px;
+        margin-top: vw(80);
+        letter-spacing: 4px;
+        white-space: normal;
+        @include g.ph {
+          font-size: 20px;
+        }
+      }
+
+      p {
+        letter-spacing: 2px;
+        line-height: 1.7;
+      }
+    }
+    .down_wrap {
+      width: vw(834);
+      margin: 0 auto;
+      line-height: 29px;
+      text-align: left;
+      white-space: normal;
+      font-feature-settings: normal;
+      font-size: 14px;
+      @include g.desktop {
+        font-size: 15px;
+        width: 95%;
+      }
+      p {
+        white-space: normal;
+        font-size: 14px;
+        white-space: pre-line;
+        letter-spacing: 0.8px;
+        line-height: 2;
+      }
+      span {
+        font-weight: 600;
+      }
+
+      .text_right {
+        text-align: right;
+        display: block;
+        font-family: "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic",
+          sans-serif;
+        font-weight: 300;
+        font-size: 16px;
+        line-height: 1;
+      }
+
+      .down_wrap_top {
+        h2 {
+          font-size: 16px;
+          font-weight: bold;
+        }
+
+        p {
+          font-size: 14px;
+          margin-top: 0px;
+          white-space: normal;
+          line-height: 2.1;
+          letter-spacing: 0.7px;
+          margin-bottom: 13px;
+        }
+      }
+    }
+  }
+  .pp_logo_wrap {
+    text-align: center;
+    .pp_logo {
+      width: 200px;
+      padding: 30px 0;
+    }
+  }
+}

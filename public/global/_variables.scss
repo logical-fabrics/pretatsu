@@ -1,0 +1,26 @@
+@for $value from 1 through 7 {
+  .mt_#{$value * 10} {
+    margin-top: 10px * $value;
+  }
+}
+
+@function fontSize($minFont) {
+  $minWidth: 480;
+  $maxWidth: 1020;
+  $minFontSize: $minFont * 1px;
+  $fontVw: round($minFont/$minWidth * 100 * 1000) / 1000;
+  $maxFontSize: round($maxWidth * ($fontVw/100)) * 1px;
+  @return clamp(#{$minFontSize}, #{$fontVw}vw, #{$maxFontSize});
+}
+
+@function vw($pixel) {
+  $viewport: 420; // 基準となるビューポート
+  @return ($pixel / $viewport * 100vw);
+}
+
+@function spacing($spacing) {
+  @return $spacing / 1000 * 1em;
+}
+
+$gray: #c0c0c0;
+$theme-color: #1ab1ff !default;

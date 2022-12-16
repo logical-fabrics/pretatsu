@@ -1,0 +1,1354 @@
+@use "../global" as g;
+@use "reset";
+
+.container {
+  width: 100%;
+  height: auto;
+
+  @function vw($pixel) {
+    $viewport: 1920; // 基準となるビューポート
+    @return ($pixel / $viewport * 100vw);
+  }
+
+  @function fontSize($maxFont) {
+    $minWidth: 980;
+    $maxWidth: 1920;
+    $maxFontSize: $maxFont * 1px;
+    $fontVw: round($maxFont/$maxWidth * 100 * 1000) / 1000;
+    $minFontSize: round($minWidth * ($fontVw / 100)) * 1px;
+    @return clamp(#{$minFontSize}, #{$fontVw}vw, #{$maxFontSize});
+  }
+
+  .top_main {
+    position: relative;
+    margin-bottom: vw(105);
+
+    @include g.ph {
+      margin-bottom: 0%;
+    }
+
+    // slider
+
+    .top_img {
+      display: block;
+      .slide-in {
+        overflow: hidden;
+        display: inline-block;
+      }
+
+      .slide-in_inner {
+        display: inline-block;
+      }
+
+      /*右左のアニメーション*/
+      .rightAnime {
+        opacity: 0; /*事前に透過0にして消しておく*/
+      }
+
+      .slideAnimeLeftRight {
+        animation-name: slideTextX100;
+        animation-duration: 1.5s;
+        animation-fill-mode: forwards;
+        opacity: 0;
+        animation-delay: 0s;
+      }
+
+      @keyframes slideTextX100 {
+        from {
+          transform: translateX(100%); /*要素を左の枠外に移動*/
+          opacity: 0;
+        }
+
+        to {
+          transform: translateX(0); /*要素を元の位置に移動*/
+          opacity: 1;
+        }
+      }
+
+      .slideAnimeRightLeft {
+        animation-name: slideTextX-100;
+        animation-duration: 1.5s;
+        animation-fill-mode: forwards;
+        opacity: 0;
+        animation-delay: 0s;
+      }
+
+      @keyframes slideTextX-100 {
+        from {
+          transform: translateX(100%); /*要素を左の枠外に移動*/
+          opacity: 0;
+        }
+
+        to {
+          transform: translateX(0); /*要素を元の位置に移動*/
+          opacity: 1;
+        }
+      }
+
+      // 右から左に
+
+      // 左から右
+
+      .leftAnime {
+        opacity: 0; /*事前に透過0にして消しておく*/
+      }
+
+      .slideAnimeLeftRight {
+        animation-name: slideTextX100;
+        animation-duration: 1.5s;
+        animation-fill-mode: forwards;
+        opacity: 0;
+      }
+
+      @keyframes slideTextX100 {
+        from {
+          transform: translateX(-100%); /*要素を左の枠外に移動*/
+          opacity: 0;
+        }
+
+        to {
+          transform: translateX(0); /*要素を元の位置に移動*/
+          opacity: 1;
+        }
+      }
+
+      .slideAnimeRightLeft {
+        animation-name: slideTextX-100;
+        animation-duration: 2s;
+        animation-fill-mode: forwards;
+        opacity: 0;
+      }
+
+      @keyframes slideTextX-100 {
+        from {
+          transform: translateX(100%); /*要素を右の枠外に移動*/
+          opacity: 0;
+        }
+
+        to {
+          transform: translateX(0); /*要素を元の位置に移動*/
+          opacity: 1;
+        }
+      }
+
+      /*==================================================
+スライダーのためのcss
+===================================*/
+      .slider {
+        /*横幅94%で左右に余白を持たせて中央寄せ*/
+        width: 60%;
+
+        @include g.lp {
+          width: 90vw;
+        }
+      }
+
+      .slider img {
+        /*スライダー内の画像を60vwにしてレスポンシブ化*/
+
+        width: 35.42vw;
+        height: auto;
+
+        @include g.lp {
+          width: 50vw;
+        }
+        @include g.ph {
+          width: 70vw;
+        }
+      }
+
+      .slider .slick-slide {
+        transform: scale(0.8); /*左右の画像のサイズを80%に*/
+        transition: all 0.5s; /*拡大や透過のアニメーションを0.5秒で行う*/
+        opacity: 0.3; /*透過50%*/
+        margin-left: 0vw;
+        margin-top: -10vw;
+        z-index: 5;
+        position: relative;
+      }
+
+      .slider .slick-slide.slick-center {
+        transform: scale(1); /*中央の画像のサイズだけ等倍に*/
+        opacity: 1; /*透過なし*/
+        z-index: 15;
+        margin-top: 30px;
+        height: auto !important;
+      }
+
+      /*矢印の設定*/
+
+      /*戻る、次へ矢印の位置*/
+      // .slick-prev,
+      // .slick-next {
+
+      // }
+
+      .slick-prev {
+        /*戻る矢印の位置と形状*/
+        left: 3.5%;
+        transform: rotate(-135deg);
+      }
+
+      .slick-next {
+        /*次へ矢印の位置と形状*/
+        right: 3.5%;
+        transform: rotate(45deg);
+      }
+
+      /*ドットナビゲーションの設定*/
+
+      .slick-dots {
+        text-align: center;
+        margin: 0;
+        position: absolute;
+        left: 33%;
+        margin-top: vw(90);
+      }
+
+      .slick-dots li {
+        display: inline-block;
+        margin: 0 5px;
+      }
+
+      .slick-dots button {
+        color: transparent;
+        outline: none;
+        width: 10px; /*ドットボタンのサイズ*/
+        height: 10px; /*ドットボタンのサイズ*/
+        display: block;
+        border-radius: 50%;
+        background: #e8e8e8; /*ドットボタンの色*/
+        border: none;
+        padding: 0px;
+
+        @include g.ph {
+          width: 8px;
+          height: 8px;
+        }
+      }
+
+      .slick-dots .slick-active button {
+        background: #da464a; /*ドットボタンの現在地表示の色*/
+      }
+
+      // slider_2
+
+      .slider_2 {
+        /*横幅94%で左右に余白を持たせて中央寄せ*/
+        width: 60%;
+        position: absolute;
+        left: 28.5%;
+        @include g.ph {
+          width: 100%;
+          left: 0%;
+        }
+      }
+
+      .slider_2 img {
+        /*スライダー内の画像を60vwにしてレスポンシブ化*/
+
+        width: 56vw;
+        height: auto;
+        margin-top: 188px;
+        @include g.lp {
+          width: 55vw;
+          margin: 220px auto 0;
+        }
+        @include g.ph {
+          width: 100vw;
+          margin: 45px auto 0;
+        }
+      }
+
+      .slider_2 .slick-slide {
+        transform: scale(0.95); /*左右の画像のサイズを80%に*/
+        transition: all 0.5s; /*拡大や透過のアニメーションを0.5秒で行う*/
+        opacity: 1; /*透過50%*/
+        margin-left: 0vw;
+        z-index: 5;
+        position: relative;
+        @include g.lp {
+          transform: scale(1); /*左右の画像のサイズを80%に*/
+        }
+      }
+
+      .slider_2 .slick-slide.slick-center {
+        transform: scale(1); /*中央の画像のサイズだけ等倍に*/
+        opacity: 1; /*透過なし*/
+        z-index: 15;
+        margin-top: 30px;
+        height: auto !important;
+      }
+
+      /*矢印の設定*/
+
+      /*戻る、次へ矢印の位置*/
+      // .slick-prev,
+      // .slick-next {
+
+      // }
+
+      .slick-prev {
+        /*戻る矢印の位置と形状*/
+        left: 3.5%;
+        transform: rotate(-135deg);
+      }
+
+      .slick-next {
+        /*次へ矢印の位置と形状*/
+        right: 3.5%;
+        transform: rotate(45deg);
+      }
+
+      /*ドットナビゲーションの設定*/
+
+      .slick-dots {
+        text-align: center;
+        width: auto;
+        @include g.ph {
+          display: none !important;
+        }
+      }
+
+      .slick-dots li {
+        display: inline-block;
+        margin: 0 5px;
+      }
+
+      .slick-dots button {
+        color: transparent;
+        outline: none;
+        width: 10px; /*ドットボタンのサイズ*/
+        height: 10px; /*ドットボタンのサイズ*/
+        display: block;
+        border-radius: 50%;
+        background: #e8e8e8; /*ドットボタンの色*/
+        border: none;
+        padding: 0px;
+
+        @include g.ph {
+          width: 8px;
+          height: 8px;
+        }
+      }
+
+      .slick-dots .slick-active button {
+        background: #da464a; /*ドットボタンの現在地表示の色*/
+      }
+    }
+
+    .top_text {
+      position: absolute;
+      top: 33%;
+      left: 16.5%;
+      @include g.ph {
+        top: 50vw;
+        left: 64%;
+        transform: translateX(-50%);
+        width: max-content;
+        text-align: center;
+      }
+      p {
+        color: #ffffff;
+        font-family: "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic",
+          sans-serif;
+        font-size: fontSize(30);
+        font-weight: bold;
+        margin: 0;
+        @include g.ph {
+          font-size: 12px;
+        }
+      }
+
+      h1 {
+        color: #ffffff;
+        font-family: "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic",
+          sans-serif;
+        font-size: fontSize(80);
+        font-weight: bold;
+        line-height: 1.2em;
+        @include g.ph {
+          font-size: 27px;
+        }
+      }
+    }
+
+    .top_back {
+      @include g.ph {
+        width: 90%;
+        margin: auto;
+      }
+      img {
+        width: vw(1302);
+        margin-bottom: 150px;
+        margin-top: 82px;
+        @include g.ph {
+          width: 0%;
+          margin-top: 65vw;
+          height: 50px;
+          margin-bottom: 10px;
+        }
+      }
+    }
+  }
+
+  .title {
+    margin-bottom: vw(142);
+    .title_wrap {
+      position: relative;
+      h1 {
+        font-size: fontSize(86);
+        font-weight: bold;
+        margin: auto;
+        text-align: center;
+        letter-spacing: 0px;
+        @include g.ph {
+          width: 90%;
+          margin: auto;
+          letter-spacing: 0px;
+          font-size: 35px;
+          margin-bottom: 20px;
+        }
+      }
+      img {
+        position: absolute;
+        top: -3%;
+        right: 19.5%;
+        height: 7vw;
+        z-index: -1;
+
+        @include g.lp {
+          display: none;
+        }
+      }
+      p {
+        text-align: center;
+        font-size: fontSize(20);
+        font-weight: bold;
+        margin-top: 10px;
+        line-height: 1.8;
+        letter-spacing: 1px;
+        @include g.lp {
+          font-size: 12px;
+        }
+        @include g.ph {
+          width: 90%;
+          margin: auto;
+          text-align: left;
+          font-size: 12px;
+        }
+      }
+    }
+
+    .title_contact {
+      a :hover {
+        opacity: 1;
+      }
+
+      p {
+        font-size: fontSize(22);
+        font-weight: bold;
+        text-align: center;
+        margin-top: vw(93);
+        @include g.ph {
+          font-size: 14px;
+        }
+      }
+      .contact_button {
+        background-color: #000;
+        border-radius: 2%;
+        width: vw(732);
+        margin: auto;
+        border-radius: 60px;
+        margin-top: vw(-68);
+        border-radius: 60px;
+
+        @include g.ph {
+          width: 80vw;
+          margin-top: 20px;
+          margin-bottom: 20px;
+        }
+
+        p {
+          color: #ffffff;
+          font-size: fontSize(24);
+          font-weight: bold;
+          padding-top: 28px;
+          padding-bottom: 28px;
+          border-radius: 60px;
+
+          @include g.ph {
+            font-size: 14px;
+          }
+        }
+
+        :hover {
+          background-color: #c0a421;
+          color: #fff;
+          transition-duration: 0.5s;
+          opacity: 1;
+          border-radius: 60px;
+        }
+      }
+    }
+    .title_contact2 {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+
+      img {
+        text-align: center;
+        width: vw(788);
+        margin: auto;
+        margin-bottom: vw(100);
+        margin-top: vw(37);
+        @include g.ph {
+          width: 90%;
+          margin-bottom: 50px;
+        }
+      }
+
+      .arrow_ora {
+        width: vw(91);
+        margin-top: 10px;
+        margin-bottom: 10px;
+        @include g.ph {
+          width: 15%;
+        }
+      }
+    }
+
+    .title_contact3 {
+      width: fit-content;
+      margin: auto;
+      position: relative;
+      margin-bottom: vw(80);
+      @include g.ph {
+        margin-bottom: 50px;
+      }
+
+      p {
+        font-size: fontSize(26);
+        font-weight: bold;
+        margin: 0;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translateY(-50%) translateX(-50%);
+        width: max-content;
+        @include g.ph {
+          white-space: normal;
+          width: 90%;
+          font-size: 14px;
+        }
+      }
+
+      .b_back {
+        width: 59vw;
+        margin-left: 57px;
+        @include g.lp {
+          width: 90vw;
+          margin: auto;
+          height: 150px;
+        }
+        @include g.ph {
+          width: 100vw;
+        }
+      }
+
+      .b_book {
+        width: 8vw;
+        position: absolute;
+        right: 1.5%;
+        top: 10%;
+        @include g.lp {
+          right: 10%;
+          top: 24%;
+        }
+        @include g.ph {
+          display: none;
+        }
+      }
+    }
+
+    .title_contact4 {
+      .contact_4_wrap {
+        width: vw(1090);
+        margin: auto;
+        border: solid 1px;
+        padding: 34px 55px;
+
+        @include g.lp {
+          width: 80vw;
+          padding: 20px 50px;
+        }
+        @include g.ph {
+          width: 90vw;
+          padding: 15px 0;
+        }
+
+        .contact_4_title {
+          h1 {
+            font-weight: bold;
+            margin-bottom: 10px;
+
+            @include g.lp {
+              text-align: center;
+              padding: 10px 0;
+              font-weight: bold;
+            }
+            @include g.ph {
+              padding: 0px 0;
+            }
+          }
+        }
+
+        p {
+          font-size: fontSize(16);
+          margin-bottom: vw(7);
+          margin-left: vw(8);
+          letter-spacing: 1.2px;
+          margin-top: 10px;
+          @include g.lp {
+            font-size: 14px;
+          }
+        }
+      }
+
+      .contact_4_wrap_top {
+        margin-bottom: 17px;
+      }
+
+      .contact_4_text {
+        display: flex;
+        @include g.lp {
+          justify-content: center;
+        }
+
+        @include g.ph {
+          flex-direction: column;
+        }
+        .contact_4_left {
+          margin-right: vw(110);
+          @include g.lp {
+            margin-right: auto;
+            margin-left: auto;
+          }
+          @include g.ph {
+            width: 80vw;
+            margin-top: -7px;
+          }
+        }
+
+        .contact_4_right {
+          @include g.lp {
+            margin-right: auto;
+            margin-left: auto;
+          }
+          @include g.ph {
+            width: 80vw;
+          }
+        }
+      }
+    }
+  }
+
+  .skill {
+    .skill_1 {
+      width: 69%;
+      margin: auto;
+      margin-bottom: vw(131);
+      @include g.lp {
+        text-align: center;
+        width: 70%;
+      }
+      @include g.ph {
+        text-align: center;
+        width: 90%;
+      }
+
+      img {
+        width: 100%;
+        margin: auto;
+        margin-bottom: vw(58);
+        @include g.lp {
+        }
+      }
+
+      .skill_1_img {
+        @include g.ph {
+          width: 100%;
+          height: 60px;
+          object-fit: cover;
+          margin-top: 50px;
+          margin-bottom: 50px;
+        }
+      }
+
+      .skill_3_wrap {
+        display: flex;
+        justify-content: center;
+
+        @include g.ph {
+          flex-direction: column;
+        }
+
+        img {
+          width: vw(426);
+          margin: 0 10px;
+
+          @include g.lp {
+            width: 25vw;
+          }
+          @include g.ph {
+            width: 85vw;
+            margin: 10px auto;
+          }
+        }
+      }
+    }
+
+    .skill_2 {
+      width: fit-content;
+      margin: auto;
+
+      @include g.ph {
+        width: 90%;
+        margin: auto;
+        margin-bottom: 60px;
+        margin-top: 60px;
+      }
+
+      img {
+        width: 100%;
+      }
+    }
+
+    .skill_3 {
+      width: fit-content;
+      margin: auto;
+      img {
+        width: 100%;
+      }
+    }
+
+    .skill_3 {
+      width: fit-content;
+      margin: auto;
+      img {
+        width: 100%;
+      }
+      .title_contact3 {
+        width: fit-content;
+        margin: auto;
+        position: relative;
+        margin-bottom: vw(80);
+
+        p {
+          font-size: fontSize(26);
+          font-weight: bold;
+          margin: 0;
+          position: absolute;
+          top: 48%;
+          left: 50%;
+          transform: translateY(-50%) translateX(-50%);
+          width: max-content;
+          line-height: 1.6;
+          letter-spacing: -2px;
+          @include g.ph {
+            white-space: normal;
+            width: 90%;
+            font-size: 14px;
+            letter-spacing: 0px;
+            text-align: left;
+          }
+        }
+
+        .b_back {
+          width: 59vw;
+          @include g.lp {
+            width: 90vw;
+            margin: auto;
+            height: 150px;
+          }
+          @include g.ph {
+            width: 100vw;
+          }
+        }
+
+        .b_book {
+          width: 10vw;
+          position: absolute;
+          left: 13.4%;
+          top: 22%;
+          @include g.lp {
+            width: 90px;
+            left: 10%;
+            top: 50%;
+            transform: translateY(-50%);
+          }
+          @include g.ph {
+            display: none;
+          }
+        }
+      }
+    }
+
+    .skill_4 {
+      width: 69%;
+      margin: auto;
+      @include g.lp {
+        text-align: center;
+        width: 70%;
+      }
+      @include g.ph {
+        width: 80%;
+      }
+      img {
+        margin-top: 32px;
+        @include g.ph {
+          width: 100%;
+          height: 32px;
+          object-fit: cover;
+          margin-top: 50px;
+          margin-bottom: 50px;
+        }
+      }
+    }
+
+    .skill_5 {
+      width: 25%;
+      @include g.lp {
+        width: 50%;
+      }
+      @include g.ph {
+        width: 75%;
+      }
+      img {
+        width: 100%;
+        margin-top: vw(65);
+      }
+    }
+
+    .skill_6 {
+      width: 69%;
+      margin: auto;
+      @include g.lp {
+        text-align: center;
+        width: 70%;
+      }
+      @include g.ph {
+        width: 80%;
+      }
+      img {
+        margin-top: vw(150);
+        @include g.ph {
+          width: 100%;
+          height: 50px;
+          object-fit: cover;
+          margin-top: 50px;
+          margin-bottom: 50px;
+        }
+      }
+    }
+
+    .skill_7 {
+      width: 51%;
+      margin: auto;
+      padding-left: 30px;
+      @include g.lp {
+        text-align: center;
+        width: 80%;
+      }
+      @include g.ph {
+        display: none;
+      }
+      img {
+        margin-top: vw(70);
+        @include g.ph {
+          width: 100%;
+          height: 50px;
+          object-fit: cover;
+          margin-top: 50px;
+          margin-bottom: 50px;
+        }
+      }
+    }
+
+    .skill_8 {
+      width: 51%;
+      margin: auto;
+      padding-left: 30px;
+      @include g.lp {
+        text-align: center;
+        width: 80%;
+      }
+
+      @include g.ph {
+        display: none;
+      }
+      img {
+        margin-top: vw(70);
+        @include g.ph {
+          width: 100%;
+          height: 50px;
+          object-fit: cover;
+          margin-top: 50px;
+          margin-bottom: 50px;
+        }
+      }
+    }
+
+    .skill_9 {
+      display: none;
+      @include g.ph {
+        text-align: center;
+        width: 80%;
+        display: block;
+      }
+      img {
+        margin-top: vw(70);
+        @include g.ph {
+          width: 100%;
+          height: auto;
+          object-fit: cover;
+          margin-top: 0px;
+          margin-bottom: 0px;
+        }
+      }
+    }
+
+    p {
+      width: fit-content;
+      font-size: fontSize(18);
+      font-weight: bold;
+      margin: auto;
+      margin-top: vw(56);
+      margin-bottom: vw(119);
+      letter-spacing: 1px;
+      text-align: center;
+      line-height: 1.7;
+      @include g.lp {
+        font-size: 12px;
+      }
+      @include g.ph {
+        margin-bottom: 50px;
+      }
+    }
+  }
+
+  .money_plan {
+    background-color: #c0a421;
+    .money1 {
+      width: fit-content;
+      margin: auto;
+      img {
+        width: 100%;
+        margin-top: vw(93);
+        @include g.lp {
+          margin-top: 50px;
+        }
+      }
+    }
+    .money2 {
+      display: flex;
+      justify-content: space-evenly;
+      margin-top: vw(95);
+      justify-content: center;
+
+      @include g.ph {
+        flex-direction: column;
+      }
+
+      .money2_img {
+        display: flex;
+        flex-direction: column;
+        margin: 0px 25px;
+        @include g.ph {
+          margin: 0;
+          margin-bottom: 50px;
+        }
+
+        img {
+          margin-left: 30px;
+        }
+
+        .money_img_1 {
+          width: vw(390);
+          margin: auto;
+          @include g.lp {
+            width: 35vw;
+          }
+          @include g.ph {
+            width: 90%;
+          }
+        }
+        .money_img_2 {
+          width: vw(325);
+          margin: auto;
+          margin-top: 20px;
+          @include g.lp {
+            width: 20vw;
+          }
+          @include g.ph {
+            width: 90%;
+          }
+        }
+
+        .m2_1 {
+          @include g.ph {
+            margin-bottom: 40px;
+          }
+        }
+      }
+    }
+
+    p {
+      font-size: fontSize(20);
+      font-weight: bold;
+      text-align: center;
+      margin-top: vw(114);
+      padding-bottom: vw(126);
+      margin-bottom: 0;
+
+      @include g.lp {
+        font-size: 14px;
+      }
+    }
+  }
+
+  .contact_button {
+    position: relative;
+    img {
+      width: 100%;
+      margin-top: -1px;
+    }
+
+    .contact_b_img img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      @include g.lp {
+        height: 250px;
+      }
+    }
+
+    .contacr_text {
+      p {
+        font-size: fontSize(20);
+        font-weight: bold;
+        color: #ffffff;
+        position: absolute;
+        top: 34%;
+        left: 50%;
+        transform: translateY(-50%) translateX(-50%);
+        @include g.lp {
+          font-size: 14px;
+        }
+        @include g.ph {
+          width: 90%;
+          text-align: center;
+        }
+      }
+      img {
+        width: vw(355);
+        position: absolute;
+        top: 60%;
+        left: 50%;
+        transform: translateY(-50%) translateX(-50%);
+        @include g.lp {
+          width: 30vw;
+        }
+        @include g.ph {
+          top: 70%;
+          width: 70vw;
+        }
+      }
+    }
+  }
+
+  .flow {
+    background-color: #c0a421;
+    margin-top: -5px;
+
+    .flow_1 {
+      width: fit-content;
+      margin: auto;
+      img {
+        width: 100%;
+        margin-top: vw(140);
+        @include g.lp {
+          margin-top: 80px;
+        }
+      }
+    }
+
+    .flow_2 {
+      width: fit-content;
+      margin: auto;
+      padding-bottom: vw(155);
+      @include g.ph {
+        width: 90%;
+      }
+      img {
+        width: 100%;
+        margin-top: 38px;
+        padding-right: vw(142);
+
+        @include g.lp {
+          margin-top: 80px;
+          padding-right: 0px;
+          margin-bottom: 80px;
+        }
+      }
+    }
+
+    .flow_3 {
+      background-color: #e6e6e6;
+      p {
+        width: fit-content;
+        font-size: clamp(9px, 0.938vw, 18px);
+        font-weight: bold;
+        margin: auto;
+        padding-top: 2vw;
+        padding-bottom: 2vw;
+        letter-spacing: 1px;
+        text-align: center;
+        line-height: 1.7;
+        @include g.lp {
+          font-size: 12px;
+        }
+        @include g.ph {
+          padding-top: 5vw;
+          padding-bottom: 5vw;
+        }
+      }
+      span {
+        letter-spacing: -2.5px;
+        @include g.lp {
+          letter-spacing: -1px;
+        }
+      }
+    }
+  }
+
+  .users_voice {
+    .voice_top {
+      width: fit-content;
+      margin: auto;
+      img {
+        width: 100%;
+        margin-top: 5.6vw;
+        margin-bottom: 6vw;
+      }
+    }
+
+    .voice_wrap1 {
+      width: 61vw;
+      display: flex;
+      justify-content: space-between;
+      margin: auto;
+      margin-bottom: 30px;
+      @include g.big {
+        width: 80vw;
+      }
+      @include g.lp {
+        width: 90vw;
+      }
+      @include g.ph {
+        flex-wrap: wrap;
+        margin-bottom: 0px;
+      }
+
+      .voice_box {
+        width: 20%;
+        @include g.ph {
+          width: 40vw;
+          margin-bottom: 30px;
+        }
+
+        .voice_t_img {
+          text-align: center;
+          @include g.ph {
+            width: 40vw;
+          }
+          img {
+            width: 100%;
+          }
+
+          p {
+            font-size: 14px;
+            font-weight: bold;
+            color: #263a72;
+            border: solid 1px #263a72;
+            border-radius: 40px;
+            text-align: center;
+            width: 100%;
+            padding: 2px;
+            margin-top: 24px;
+            @include g.lp {
+              padding: 7px;
+            }
+          }
+        }
+        .voice_b_text {
+          p {
+            font-size: 15px;
+            margin-bottom: 0px;
+          }
+
+          .about_text {
+            font-size: 16px;
+            font-weight: bold;
+            border-bottom: solid 1px #263a72;
+            width: fit-content;
+            margin-left: auto;
+            margin-top: 0px;
+          }
+        }
+      }
+    }
+    .voice_text {
+      background-color: #e6e6e6;
+
+      p {
+        width: fit-content;
+        font-size: clamp(9px, 0.938vw, 18px);
+        font-weight: bold;
+        margin: auto;
+        padding-top: 2vw;
+        padding-bottom: 2vw;
+        letter-spacing: 1px;
+        text-align: center;
+        line-height: 1.7;
+        // margin-top: vw(100);
+        @include g.lp {
+          font-size: 14px;
+        }
+        @include g.ph {
+          font-size: 12px;
+          padding-top: 5vw;
+          padding-bottom: 5vw;
+        }
+      }
+    }
+  }
+
+  .sub_footer {
+    position: relative;
+
+    a :hover {
+      opacity: 1;
+    }
+    .sub_contact {
+      background-color: #000;
+      border-radius: 2%;
+      width: 38.125vw;
+      margin: auto;
+      border-radius: 60px;
+
+      :hover {
+        background-color: #c0a421;
+        color: #ffffff;
+        transition-duration: 0.5s;
+        opacity: 1;
+        border-radius: 60px;
+      }
+      @include g.ph {
+        width: 80vw;
+        margin-top: 20px;
+        margin-bottom: 20px;
+      }
+      p {
+        color: #ffffff;
+        font-size: clamp(12px, 1.25vw, 24px);
+        font-weight: bold;
+        padding-top: 23px;
+        padding-bottom: 23px;
+        text-align: center;
+        margin-top: 40px;
+        letter-spacing: 2px;
+        margin-bottom: 74px;
+
+        @include g.ph {
+          font-size: 14px;
+        }
+      }
+    }
+    .logo_img {
+      text-align: center;
+      margin-bottom: vw(70);
+
+      :hover {
+        opacity: 0.8;
+      }
+    }
+
+    .page_top {
+      position: absolute;
+      right: 6%;
+      top: -3%;
+      @include g.ph {
+        display: none;
+      }
+    }
+  }
+
+  .sp-br {
+    display: block;
+    @include g.ph {
+      display: none;
+    }
+  }
+
+  .sp-br2 {
+    display: none;
+    @include g.ph {
+      display: block;
+    }
+  }
+
+  .scroll_up {
+    transition: 0.8s ease-in-out;
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  .scroll_up.on {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  .timing02 {
+    transition-delay: 0.3s;
+  }
+  .timing03 {
+    transition-delay: 0.6s;
+  }
+
+  .wrap {
+    display: flex;
+    flex-wrap: wrap;
+
+    color: #ffffff;
+    font-family: "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", sans-serif;
+    font-size: clamp(41px, 4.167vw, 80px);
+    font-weight: bold;
+    line-height: 1.2em;
+    margin: auto;
+    width: fit-content;
+    justify-content: center;
+
+    @include g.ph {
+      width: 100%;
+      margin: auto;
+      letter-spacing: 0px;
+      font-size: 35px;
+      margin-bottom: 20px;
+    }
+  }
+
+  .wrap2 {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
