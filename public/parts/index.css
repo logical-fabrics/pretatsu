@@ -170,6 +170,9 @@ footer .footer_img {
   justify-content: space-between;
   margin-bottom: 50px;
 }
+footer .footer_img img {
+  width: 60px;
+}
 footer .copyright .copy_black {
   background-color: #000;
   height: 30px;
